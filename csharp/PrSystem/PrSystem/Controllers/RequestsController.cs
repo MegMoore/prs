@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using PrSystem.Data;
 using PrSystem.Models;
 
@@ -49,6 +50,57 @@ namespace PrSystem.Controllers
 
             return request;
         }
+
+        //Added Methods//
+        //***************************************************************************************//
+
+        // GET: api/requests/reviews/{id}
+        [HttpGet("review")]
+        public async Task<ActionResult<IEnumerable<Request>>> GetRequestsIfReview()
+        {
+            if (_context.Requests == null)
+            {
+                return NotFound();
+            }
+            return await _context.Requests
+                          .Where(x => x.Status == "Review")
+                          .Include(x => x.User)
+                          .ToListAsync();
+        }
+
+
+        //Put: api/request/review/{id}
+        //Updating Request Status to Review
+
+        [HttpPut("review/{id}")]
+        public async Task<IActionResult> SetRequestStatusToReview(Request request, int id)
+        {
+            request.Status = "Review";
+            return await PutRequest(id, request);
+        }
+
+        //PUT: api/Orders/approve/{id}
+
+        [HttpPut("approve/{id}")]
+        public async Task<IActionResult> SetRequestStatusToApprove(Request request, int id)
+        {
+            request.Status = "Approve";
+            return await PutRequest(id, request);
+        }
+
+
+        //PUT: api/Orders/reject/{id}
+
+        [HttpPut("reject/{id}")]
+        public async Task<IActionResult> SetRequestStatusToReject(Request request, int id)
+        {
+            request.Status = "Reject";
+            return await PutRequest(id, request);
+        }
+
+
+
+        //******************************************************************************************//
 
         // PUT: api/Requests/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
