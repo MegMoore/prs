@@ -21,11 +21,11 @@ namespace PrSystem.Controllers
             _context = context;
         }
 
-        //GET: api/User/{email}/{password}   ---Creating an user login
-        [HttpGet("{email}/{password}")]
-        public async Task<ActionResult<User>> LoginUser(string email, string password)
+        //GET: api/User/{username}/{password}   ---Creating an user login
+        [HttpGet("{username}/{password}")]
+        public async Task<ActionResult<User>> LoginUser(string username, string password)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == email && x.Password == password);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == username && x.Password == password);
 
             if (user == null)
             {
