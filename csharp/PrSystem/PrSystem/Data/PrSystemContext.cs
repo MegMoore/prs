@@ -18,5 +18,9 @@ namespace PrSystem.Data
         public DbSet<User> Users { get; set; } = default!;
 
         public DbSet<Vendor> Vendors { get; set; } = default!;
+
+        public DbSet<Product> Products { get; set; } = default!;
+
+        public DbSet<Request> Requests { get; set; } = default!;
     }
 }
