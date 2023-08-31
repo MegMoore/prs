@@ -30,7 +30,7 @@ namespace PrSystem.Controllers
           {
               return NotFound();
           }
-            return await _context.Requests.ToListAsync();
+            return await _context.Requests.Include(x => x.User).Include(x => x.RequestLines).ToListAsync(); ;
         }
 
         // GET: api/Requests/5
@@ -41,7 +41,9 @@ namespace PrSystem.Controllers
           {
               return NotFound();
           }
-            var request = await _context.Requests.FindAsync(id);
+            var request = await _context.Requests.Include(x => x.User)
+                                    .Include(x => x.RequestLines)
+                                    .SingleOrDefaultAsync(x => x.Id == id); ;
 
             if (request == null)
             {

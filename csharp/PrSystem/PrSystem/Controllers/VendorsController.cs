@@ -15,11 +15,28 @@ namespace PrSystem.Controllers
     public class VendorsController : ControllerBase
     {
         private readonly PrSystemContext _context;
+        private object vendor;
 
         public VendorsController(PrSystemContext context)
         {
             _context = context;
         }
+
+        //Added Methods
+        //****************************************************************************//
+
+        [HttpGet("po/{vendorId}")]
+        public async Task<ActionResult<Po>> CreatePo(int vendorId)
+        {
+            if (id != vendor.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(vendor).State = EntityState.Modified;
+        }
+
+        //*****************************************************************************//
 
         // GET: api/Vendors
         [HttpGet]
