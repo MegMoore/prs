@@ -11,8 +11,8 @@ using PrSystem.Data;
 namespace PrSystem.Migrations
 {
     [DbContext(typeof(PrSystemContext))]
-    [Migration("20230831141822_init")]
-    partial class init
+    [Migration("20230831143423_update")]
+    partial class update
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace PrSystem.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

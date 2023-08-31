@@ -15,6 +15,6 @@ namespace PrSystem.Data
 
         }
 
-        public DbSet<PrSystem.Models.User> Users { get; set; } = default!;
+        public DbSet<User> Users { get; set; } = default!;
     }
 }
