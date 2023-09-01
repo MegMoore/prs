@@ -65,7 +65,7 @@ namespace PrSystem.Controllers
                 return NotFound();
             }
             return await _context.Requests
-                          .Where(x => x.Status == "Review")
+                          .Where(x => x.Status == "REVIEW")
                           .Include(x => x.User)
                           .ToListAsync();
         }
@@ -77,7 +77,7 @@ namespace PrSystem.Controllers
         [HttpPut("review/{id}")]
         public async Task<IActionResult> SetRequestStatusToReview(Request request, int id)
         {
-            request.Status = "Review";
+            request.Status = "REVIEW";
             return await PutRequest(id, request);
         }
 
@@ -86,7 +86,7 @@ namespace PrSystem.Controllers
         [HttpPut("approve/{id}")]
         public async Task<IActionResult> SetRequestStatusToApprove(Request request, int id)
         {
-            request.Status = "Approve";
+            request.Status = "APPROVE";
             return await PutRequest(id, request);
         }
 
@@ -96,7 +96,7 @@ namespace PrSystem.Controllers
         [HttpPut("reject/{id}")]
         public async Task<IActionResult> SetRequestStatusToReject(Request request, int id)
         {
-            request.Status = "Reject";
+            request.Status = "REJECT";
             return await PutRequest(id, request);
         }
 
