@@ -83,20 +83,20 @@ namespace PrSystem.Controllers
 
         //PUT: api/Orders/approve/{id}
 
-        [HttpPut("approve/{id}")]
+        [HttpPut("approved/{id}")]
         public async Task<IActionResult> SetRequestStatusToApprove(Request request, int id)
         {
-            request.Status = "APPROVE";
+            request.Status = "APPROVED";
             return await PutRequest(id, request);
         }
 
 
         //PUT: api/Orders/reject/{id}
 
-        [HttpPut("reject/{id}")]
+        [HttpPut("rejected/{id}")]
         public async Task<IActionResult> SetRequestStatusToReject(Request request, int id)
         {
-            request.Status = "REJECT";
+            request.Status = "REJECTED";
             return await PutRequest(id, request);
         }
 
