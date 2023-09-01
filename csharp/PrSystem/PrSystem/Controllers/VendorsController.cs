@@ -25,16 +25,6 @@ namespace PrSystem.Controllers
         //Added Methods
         //****************************************************************************//
 
-        [HttpGet("po/{vendorId}")]
-        public async Task<ActionResult<Po>> CreatePo(int vendorId)
-        {
-            if (id != vendor.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(vendor).State = EntityState.Modified;
-        }
 
         //*****************************************************************************//
 
