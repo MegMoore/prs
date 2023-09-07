@@ -71,7 +71,7 @@ namespace PrSystem.Controllers
         }
 
 
-        //Put: api/request/review/{id}
+        //Put: api/Request/review/{id}
         //Updating Request Status to Review
 
         [HttpPut("review/{id}")]
@@ -81,22 +81,22 @@ namespace PrSystem.Controllers
             return await PutRequest(id, request);
         }
 
-        //PUT: api/Orders/approve/{id}
+        //PUT: api/Requests/approved/{id}
 
-        [HttpPut("approved/{id}")]
+        [HttpPut("rejected/{id}")]
         public async Task<IActionResult> SetRequestStatusToApprove(Request request, int id)
         {
-            request.Status = "APPROVED";
+            request.Status = "REJECTED";
             return await PutRequest(id, request);
         }
 
 
-        //PUT: api/Orders/reject/{id}
+        //PUT: api/Requests/rejected/{id}
 
-        [HttpPut("rejected/{id}")]
+        [HttpPut("approved/{id}")]
         public async Task<IActionResult> SetRequestStatusToReject(Request request, int id)
         {
-            request.Status = "REJECTED";
+            request.Status = "APPROVED";
             return await PutRequest(id, request);
         }
 
