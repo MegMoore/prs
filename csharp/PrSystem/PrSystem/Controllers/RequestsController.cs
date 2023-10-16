@@ -77,8 +77,18 @@ namespace PrSystem.Controllers
         [HttpPut("review/{id}")]
         public async Task<IActionResult> SetRequestStatusToReview(Request request, int id)
         {
-            request.Status = "REVIEW";
+         if(request.Total < 51)
+            {
+
+            request.Status = "APPROVED";
             return await PutRequest(id, request);
+            }
+         else
+            {
+                request.Status = "REVIEW";
+                return await PutRequest(id, request);
+            }
+
         }
 
         //PUT: api/Requests/approved/{id}
