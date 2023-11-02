@@ -10,7 +10,7 @@ var connStrKey = "ProdDb";
 
 #endif
 builder.Services.AddDbContext<PrSystemContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProdDb") ?? throw new InvalidOperationException("Connection string 'PrSystemContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(connStrKey) ?? throw new InvalidOperationException("Connection string 'PrSystemContext' not found.")));
 
 // Add services to the container.
 
