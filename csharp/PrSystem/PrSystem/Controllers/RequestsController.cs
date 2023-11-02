@@ -30,7 +30,9 @@ namespace PrSystem.Controllers
           {
               return NotFound();
           }
-            return await _context.Requests.Include(x => x.User).Include(x => x.RequestLines).ToListAsync(); ;
+            return await _context.Requests.Include(x => x.User)
+                                   .Include(x => x.RequestLines)
+                                   .ToListAsync();  
         }
 
         // GET: api/Requests/5
@@ -43,7 +45,8 @@ namespace PrSystem.Controllers
           }
             var request = await _context.Requests.Include(x => x.User)
                                     .Include(x => x.RequestLines)
-                                    .SingleOrDefaultAsync(x => x.Id == id); ;
+                                    .ThenInclude(x => x.Product)
+                                    .SingleOrDefaultAsync(x => x.Id == id); 
 
             if (request == null)
             {
@@ -56,16 +59,16 @@ namespace PrSystem.Controllers
         //Added Methods//
         //***************************************************************************************//
 
-        // GET: api/requests/reviews/{id}
-        [HttpGet("review")]
-        public async Task<ActionResult<IEnumerable<Request>>> GetRequestsIfReview()
+        // GET: api/requests/review
+        [HttpGet("review/{userid}")]
+        public async Task<ActionResult<IEnumerable<Request>>> GetRequestsIfReview(int userid)
         {
             if (_context.Requests == null)
             {
                 return NotFound();
             }
             return await _context.Requests
-                          .Where(x => x.Status == "REVIEW")
+                          .Where(x => x.Status == "REVIEW" && x.UserId != userid)
                           .Include(x => x.User)
                           .ToListAsync();
         }
@@ -77,17 +80,8 @@ namespace PrSystem.Controllers
         [HttpPut("review/{id}")]
         public async Task<IActionResult> SetRequestStatusToReview(Request request, int id)
         {
-         if(request.Total < 51)
-            {
-
-            request.Status = "APPROVED";
+            request.Status = (request.Total <= 50) ? "APPROVED" : "REVIEW";
             return await PutRequest(id, request);
-            }
-         else
-            {
-                request.Status = "REVIEW";
-                return await PutRequest(id, request);
-            }
 
         }
 
@@ -115,7 +109,6 @@ namespace PrSystem.Controllers
         //******************************************************************************************//
 
         // PUT: api/Requests/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRequest(int id, Request request)
         {

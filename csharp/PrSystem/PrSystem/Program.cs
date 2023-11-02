@@ -2,8 +2,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using PrSystem.Data;
 var builder = WebApplication.CreateBuilder(args);
+
+var connStrKey = "ProdDb";
+
+#if DEBUG
+    connStrKey = "DevDb";
+
+#endif
 builder.Services.AddDbContext<PrSystemContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DevDb") ?? throw new InvalidOperationException("Connection string 'PrSystemContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProdDb") ?? throw new InvalidOperationException("Connection string 'PrSystemContext' not found.")));
 
 // Add services to the container.
 
