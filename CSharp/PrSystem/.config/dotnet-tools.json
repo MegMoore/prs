@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "doud.cli.encrypt.decrypt.appsettings": {
+      "version": "0.8.1-beta1",
+      "commands": [
+        "doud-encrypt"
+      ]
+    }
+  }
+}
